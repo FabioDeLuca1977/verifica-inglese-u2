@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Exercises - Natural Disasters & Weather</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .nav-exercises {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 3px solid #e9ecef;
+        }
+
+        .nav-exercises button {
+            padding: 12px 16px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: #495057;
+        }
+
+        .nav-exercises button:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .nav-exercises button.active {
+            background: #764ba2;
+            color: white;
+            border-color: #764ba2;
+        }
+
+        .exercise-container {
+            padding: 30px;
+            display: none;
+        }
+
+        .exercise-container.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .exercise-title {
+            font-size: 1.8em;
+            color: #764ba2;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .exercise-subtitle {
+            color: #6c757d;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+
+        .question {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: #343a40;
+            margin-bottom: 12px;
+            font-size: 1.05em;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        input.correct {
+            border-color: #28a745;
+            background-color: #d4edda;
+        }
+
+        input.incorrect {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+        }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-check {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-check:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-reset {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-show {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-show:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            display: none;
+        }
+
+        .score-display.show {
+            display: block;
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .headline {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .headline-text {
+            font-style: italic;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        select {
+            padding: 10px 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1em;
+            min-width: 150px;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .reading-text {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            border-left: 4px solid #764ba2;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border: 2px solid #b3d9ff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-box strong {
+            color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .nav-exercises {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .exercise-title {
+                font-size: 1.4em;
+            }
+
+            .container {
+                border-radius: 10px;
+            }
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            border-top: 3px solid #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌍 English Exercises</h1>
+            <p>Natural Disasters, Weather & Grammar Practice</p>
+        </div>
+
+        <div class="nav-exercises">
+            <button class="nav-btn active" data-exercise="1">🌋 Ex.1 Disasters</button>
+            <button class="nav-btn" data-exercise="2">🌦️ Ex.2 Weather</button>
+            <button class="nav-btn" data-exercise="3">🔵 Ex.3 Will/Going to</button>
+            <button class="nav-btn" data-exercise="4">🌱 Ex.4 Zero Cond.</button>
+            <button class="nav-btn" data-exercise="5">🔮 Ex.5 First Cond.</button>
+            <button class="nav-btn" data-exercise="6">🔮 Ex.6 May/Might</button>
+            <button class="nav-btn" data-exercise="7">🌡️ Ex.7 So/Such</button>
+            <button class="nav-btn" data-exercise="8">🌍 Ex.8 Reading</button>
+            <button class="nav-btn" data-exercise="9">📝 Ex.9 Writing</button>
+            <button class="nav-btn" data-exercise="10">🔥 Ex.10 Vocab</button>
+            <button class="nav-btn" data-exercise="11">🔵 Ex.11 Will</button>
+            <button class="nav-btn" data-exercise="12">🧭 Ex.12 Going to</button>
+            <button class="nav-btn" data-exercise="13">🌱 Ex.13 Conditionals</button>
+            <button class="nav-btn" data-exercise="14">🔥 Ex.14 Reading 2</button>
+            <button class="nav-btn" data-exercise="15">🌀 Ex.15 Vocab 2</button>
+        </div>
+
+        <!-- Exercise 1: Natural Disasters -->
+        <div class="exercise-container active" data-exercise="1">
+            <h2 class="exercise-title">🌋 Exercise 1: Natural Disasters</h2>
+            <p class="exercise-subtitle">Page 35, n. 2 - Match the headlines with the natural disasters</p>
+            
+            <div class="info-box">
+                <strong>Word bank:</strong> tsunami • drought • avalanche • volcanic eruption • earthquake • flood • forest fire • blizzard • hurricane • lightning and thunderstorm • tornado
+            </div>
+
+            <div class="question">
+                <div class="headline">
+                    <div class="headline-text">"Snow buries six people at Millcreek Canyon, USA"</div>
+                </div>
+                <div class="input-group">
+                    <select class="answer" data-answer="avalanche">
+                        <option value="">Select disaster...</option>
+                        <option value="tsunami">tsunami</option>
+                        <option value="drought">drought</option>
+                        <option value="avalanche">avalanche</option>
+                        <option value="volcanic eruption">volcanic eruption</option>
+                        <option value="earthquake">earthquake</option>
+                        <option value="flood">flood</option>
+                        <option value="forest fire">forest fire</option>
+                        <option value="blizzard">blizzard</option>
+                        <option value="hurricane">hurricane</option>
+                        <option value="tornado">tornado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="headline">
+                    <div class="headline-text">"Water from the Blue Nile destroys 100,000 homes in Sudan"</div>
+                </div>
+                <div class="input-group">
+                    <select class="answer" data-answer="flood">
+                        <option value="">Select disaster...</option>
+                        <option value="tsunami">tsunami</option>
+                        <option value="drought">drought</option>
+                        <option value="avalanche">avalanche</option>
+                        <option value="volcanic eruption">volcanic eruption</option>
+                        <option value="earthquake">earthquake</option>
+                        <option value="flood">flood</option>
+                        <option value="forest fire">forest fire</option>
+                        <option value="blizzard">blizzard</option>
+                        <option value="hurricane">hurricane</option>
+                        <option value="tornado">tornado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="headline">
+                    <div class="headline-text">"Millions of people don't have enough food after no rain falls in Somalia in 2019, 2020 and 2021"</div>
+                </div>
+                <div class="input-group">
+                    <select class="answer" data-answer="drought">
+                        <option value="">Select disaster...</option>
+                        <option value="tsunami">tsunami</option>
+                        <option value="drought">drought</option>
+                        <option value="avalanche">avalanche</option>
+                        <option value="volcanic eruption">volcanic eruption</option>
+                        <option value="earthquake">earthquake</option>
+                        <option value="flood">flood</option>
+                        <option value="forest fire">forest fire</option>
+                        <option value="blizzard">blizzard</option>
+                        <option value="hurricane">hurricane</option>
+                        <option value="tornado">tornado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="headline">
+                    <div class="headline-text">"130,000 km² of land burns in Australia between October 2019 and February 2020"</div>
+                </div>
+                <div class="input-group">
+                    <select class="answer" data-answer="forest fire">
+                        <option value="">Select disaster...</option>
+                        <option value="tsunami">tsunami</option>
+                        <option value="drought">drought</option>
+                        <option value="avalanche">avalanche</option>
+                        <option value="volcanic eruption">volcanic eruption</option>
+                        <option value="earthquake">earthquake</option>
+                        <option value="flood">flood</option>
+                        <option value="forest fire">forest fire</option>
+                        <option value="blizzard">blizzard</option>
+                        <option value="hurricane">hurricane</option>
+                        <option value="tornado">tornado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="headline">
+                    <div class="headline-text">"Giant wave 5 metres high hits the coast of Indonesia"</div>
+                </div>
+                <div class="input-group">
+                    <select class="answer" data-answer="tsunami">
+                        <option value="">Select disaster...</option>
+                        <option value="tsunami">tsunami</option>
+                        <option value="drought">drought</option>
+                        <option value="avalanche">avalanche</option>
+                        <option value="volcanic eruption">volcanic eruption</option>
+                        <option value="earthquake">earthquake</option>
+                        <option value="flood">flood</option>
+                        <option value="forest fire">forest fire</option>
+                        <option value="blizzard">blizzard</option>
+                        <option value="hurricane">hurricane</option>
+                        <option value="tornado">tornado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="headline">
+                    <div class="headline-text">"Ground shakes for 35 seconds in Haiti, leaving 1.5 million people without homes"</div>
+                </div>
+                <div class="input-group">
+                    <select class="answer" data-answer="earthquake">
+                        <option value="">Select disaster...</option>
+                        <option value="tsunami">tsunami</option>
+                        <option value="drought">drought</option>
+                        <option value="avalanche">avalanche</option>
+                        <option value="volcanic eruption">volcanic eruption</option>
+                        <option value="earthquake">earthquake</option>
+                        <option value="flood">flood</option>
+                        <option value="forest fire">forest fire</option>
+                        <option value="blizzard">blizzard</option>
+                        <option value="hurricane">hurricane</option>
+                        <option value="tornado">tornado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(1)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(1)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(1)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-1"></div>
+        </div>
+
+        <!-- Exercise 2: Weather Vocabulary -->
+        <div class="exercise-container" data-exercise="2">
+            <h2 class="exercise-title">🌦️ Exercise 2: Weather Vocabulary</h2>
+            <p class="exercise-subtitle">Page 37, n. 7 - Complete the forecasts</p>
+            
+            <div class="info-box">
+                <strong>Word bank:</strong> boiling • pour • freezing • rise • thick • blow
+            </div>
+
+            <div class="question">
+                <p class="question-text">1. It will be __________ cold in Anchorage tomorrow!</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="freezing" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. The wind is going to __________ hard in Chicago.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="blow" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. It's chilly now, but the temperature is going to __________ later on.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="rise" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. There's __________ fog on the coast of Chile this morning.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="thick" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">5. It will be __________ hot in Cairo this afternoon!</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="boiling" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">6. It's going to __________ with rain in Cardiff tonight!</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="pour" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(2)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(2)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(2)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-2"></div>
+        </div>
+
+        <!-- Exercise 3: Will / Be Going To / Present -->
+        <div class="exercise-container" data-exercise="3">
+            <h2 class="exercise-title">🔵 Exercise 3: Will / Be Going To / Present</h2>
+            <p class="exercise-subtitle">Page 38, Review n. 1</p>
+
+            <div class="question">
+                <p class="question-text">1. Max has decided. He's going to go (go) on a motorbike trip next weekend. He __________ (go) camping in the mountains too.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will go" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. A: It's very dark in here. B: I __________ (turn on) the light.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will turn on" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. A: Where's the remote? B: I don't know. I __________ (help) you look for it.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will help" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. Look at those clouds. It __________ (rain).</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="is going to rain" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">5. I think people __________ (drive) electric cars in the future.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will drive" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">6. Eddy and Karen don't know what to do this summer. Maybe they __________ (go) to France.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="might go|will go" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">7. It's hot today. I __________ (take) a shower later.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="am going to take|will take" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">8. When Tim grows up, he __________ (be) a vet.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will be" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">9. Be careful! You __________ (drop) your glasses.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="are going to drop" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(3)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(3)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(3)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-3"></div>
+        </div>
+
+        <!-- Exercise 4: Zero Conditional -->
+        <div class="exercise-container" data-exercise="4">
+            <h2 class="exercise-title">🌱 Exercise 4: Zero Conditional</h2>
+            <p class="exercise-subtitle">Page 40, n. 8 - Zero conditional sentences (○)</p>
+
+            <div class="question">
+                <p class="question-text">1. If it rains, the ground <strong>gets</strong> (get) wet. ○ (Example - already done)</p>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. If there __________ (be) an avalanche, lots of snow rolls down the side of a mountain. ○</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="is" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. Plants die if they __________ (not / get) enough water. ○</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="don't get|do not get" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. If we __________ (add) sugar to something, it becomes sweet. ○</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="add" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(4)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(4)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(4)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-4"></div>
+        </div>
+
+        <!-- Exercise 5: First Conditional -->
+        <div class="exercise-container" data-exercise="5">
+            <h2 class="exercise-title">🔮 Exercise 5: First Conditional</h2>
+            <p class="exercise-subtitle">Page 38, Review n. 2</p>
+
+            <div class="question">
+                <p class="question-text">1. If it snows this afternoon, we __________ (stay) at home.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will stay" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. Plants __________ (die) if you don't water them.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will die" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. If Jane __________ (take) the bus, she __________ (be) on time.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="takes, will be|takes,will be" placeholder="takes, will be">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. Unless I __________ (find) a job soon, I __________ (move) to another city.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="find, will move|find,will move" placeholder="find, will move">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">5. If they don't arrive soon, we __________ (start) our pizza without them.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will start" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(5)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(5)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(5)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-5"></div>
+        </div>
+
+        <!-- Exercise 6: Will / May / Might -->
+        <div class="exercise-container" data-exercise="6">
+            <h2 class="exercise-title">🔮 Exercise 6: Will / May / Might</h2>
+            <p class="exercise-subtitle">Page 41, n. 1 - Weather report</p>
+
+            <div class="reading-text">
+                <strong>Weather report</strong><br>
+                Presenter: Good evening. Let's take a look at the weather for next week. It <strong>will</strong> be quite cold on Monday, but it...
+            </div>
+
+            <div class="question">
+                <p class="question-text">1. ...but it __________ get warmer during the day.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will|may|might" placeholder="will, may or might">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. On Tuesday there __________ be strong winds in some areas.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="may|might|will" placeholder="may, might or will">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. Wednesday and Thursday __________ be cloudy...</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. ...but it __________ be sunny in the south of the country.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="may|might" placeholder="may or might">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">5. On Friday temperatures __________ go down to 5°C...</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">6. ...and there __________ be snow in the mountains.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="may|might" placeholder="may or might">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(6)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(6)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(6)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-6"></div>
+        </div>
+
+        <!-- Exercise 7: So / Such -->
+        <div class="exercise-container" data-exercise="7">
+            <h2 class="exercise-title">🌡️ Exercise 7: So / Such</h2>
+            <p class="exercise-subtitle">Page 38, n. 4</p>
+
+            <div class="question">
+                <p class="question-text">1. We feel <strong>so happy</strong> today! (Example - already done)</p>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. The weather is __________ hot today! (hot)</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="so" placeholder="so or such">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. That is __________ an interesting story! (interesting)</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="such" placeholder="so or such">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. I had __________ a great time at the party! (great time)</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="such" placeholder="so or such">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">5. Today is __________ a terrible day! (terrible day)</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="such" placeholder="so or such">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">6. I'm __________ tired after the walk! (tired)</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="so" placeholder="so or such">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(7)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(7)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(7)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-7"></div>
+        </div>
+
+        <!-- Exercise 8: Reading Comprehension -->
+        <div class="exercise-container" data-exercise="8">
+            <h2 class="exercise-title">🌍 Exercise 8: Reading - Natural Disasters in 2100</h2>
+            <p class="exercise-subtitle">Page 43, n. 3</p>
+
+            <div class="question">
+                <p class="question-text">1. What do scientists expect temperatures to do in the next decades?</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="rise|increase|go up" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. What will happen in coastal cities?</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="flood|go under water|be flooded" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. What will farmers struggle to do in regions without rain?</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="grow crops|plant crops|farm" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. Why will wildfires become more common?</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="heat and drought|drought and heat|because of heat|dry conditions" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(8)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(8)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(8)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-8"></div>
+        </div>
+
+        <!-- Exercise 9: Writing Analysis -->
+        <div class="exercise-container" data-exercise="9">
+            <h2 class="exercise-title">📝 Exercise 9: Social Media Post Analysis</h2>
+            <p class="exercise-subtitle">Page 44, n. 3 - Identify the elements</p>
+
+            <div class="info-box">
+                <strong>Instructions:</strong> Read a social media post about weather/natural disaster and identify these elements. (This exercise requires the actual post from the textbook. Below are general guidelines for what to look for.)
+            </div>
+
+            <div class="question">
+                <p class="question-text">Find and describe the <strong>context</strong> (where Sara is, what's happening):</p>
+                <div class="input-group">
+                    <textarea class="answer" data-answer="context" placeholder="Describe the context from the post..."></textarea>
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">Find and describe the <strong>description</strong> (what Sara sees / the weather phenomenon):</p>
+                <div class="input-group">
+                    <textarea class="answer" data-answer="description" placeholder="Describe what's happening..."></textarea>
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">Find Sara's <strong>feelings</strong> (emotions: worried, scared, excited...):</p>
+                <div class="input-group">
+                    <textarea class="answer" data-answer="feelings" placeholder="What emotions does Sara express?"></textarea>
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">What will happen <strong>next</strong> (future prediction in the post):</p>
+                <div class="input-group">
+                    <textarea class="answer" data-answer="next" placeholder="What does the post say about future events?"></textarea>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 20px; background: #fff3cd; border-color: #ffc107;">
+                <strong>Note:</strong> This exercise requires manual review by the teacher as answers will vary based on the actual post in the textbook.
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-reset" onclick="resetExercise(9)">Reset</button>
+            </div>
+        </div>
+
+        <!-- Exercise 10: Grammar & Vocabulary -->
+        <div class="exercise-container" data-exercise="10">
+            <h2 class="exercise-title">🔥 Exercise 10: Grammar & Vocabulary</h2>
+            <p class="exercise-subtitle">Page 54, n. 1</p>
+
+            <div class="info-box">
+                <strong>Word bank:</strong> use • cause • find • melt • lose • rise
+            </div>
+
+            <div class="question">
+                <p class="question-text">1. The Earth's temperatures will continue to __________.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="rise" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. This will __________ the polar ice caps to (3) __________.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="cause, melt|cause,melt" placeholder="cause, melt">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. The extreme heat will also __________ lakes and rivers to dry up.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="cause" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">5. All this means that thousands of animal species will __________ their habitats.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="lose" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">6. In the near future, scientists will __________ cures for more diseases.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="find" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(10)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(10)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(10)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-10"></div>
+        </div>
+
+        <!-- Exercise 11: Will - Affirmative -->
+        <div class="exercise-container" data-exercise="11">
+            <h2 class="exercise-title">🔵 Exercise 11: Will - Affirmative Form</h2>
+            <p class="exercise-subtitle">Page 55, n. 1</p>
+
+            <div class="info-box">
+                <strong>Verbs:</strong> help • be • reach • live • meet • do
+            </div>
+
+            <div class="question">
+                <p class="question-text">1. Millions of people __________ in cities in the future.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will live" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. I'm sure you __________ lots of interesting people at the camp.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will meet" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. Tomorrow you __________ the top of the mountain.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will reach" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. Don't worry, everything __________ OK.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will be" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">5. I promise I __________ you with your homework.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will help" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">6. She thinks life in 2050 __________ more difficult.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will be" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(11)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(11)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(11)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-11"></div>
+        </div>
+
+        <!-- Exercise 12: Be Going To Review -->
+        <div class="exercise-container" data-exercise="12">
+            <h2 class="exercise-title">🧭 Exercise 12: Will / Be Going To Review</h2>
+            <p class="exercise-subtitle">Page 56, n. 1</p>
+
+            <div class="question">
+                <p class="question-text">1. Look! The clouds are very dark. It __________ (rain).</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="is going to rain" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. I think people __________ (use) only clean energy in ten years' time.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will use" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. We __________ (clean) the park next Saturday morning.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="are going to clean" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. Don't worry, I __________ (carry) the bags for you.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will carry" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">5. They __________ (move) to a new house next month.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="are going to move" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">6. The weather forecast says that temperatures __________ (be) very high next week.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="will be" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(12)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(12)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(12)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-12"></div>
+        </div>
+
+        <!-- Exercise 13: Conditionals Review -->
+        <div class="exercise-container" data-exercise="13">
+            <h2 class="exercise-title">🌱 Exercise 13: Zero & First Conditional</h2>
+            <p class="exercise-subtitle">Page 57, n. 2</p>
+
+            <div class="question">
+                <p class="question-text">1. If you __________ (touch) fire, you __________ (burn) your hand.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="touch, will burn|touch,will burn" placeholder="touch, will burn">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. If we __________ (recycle) more, we __________ (reduce) pollution.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="recycle, will reduce|recycle,will reduce" placeholder="recycle, will reduce">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. Unless it __________ (rain), we __________ (have) a picnic.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="rains, will have|rains,will have" placeholder="rains, will have">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. Plants __________ (grow) if they __________ (get) enough sunlight.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="grow, get|grow,get" placeholder="grow, get">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">5. If the weather __________ (be) good, we __________ (go) to the beach.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="is, will go|is,will go" placeholder="is, will go">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">6. If you __________ (not / listen), you __________ (not / learn).</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="don't listen, won't learn|don't listen,won't learn|do not listen, will not learn" placeholder="don't listen, won't learn">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(13)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(13)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(13)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-13"></div>
+        </div>
+
+        <!-- Exercise 14: Reading - Black Summer -->
+        <div class="exercise-container" data-exercise="14">
+            <h2 class="exercise-title">🔥 Exercise 14: Reading - Black Summer in Australia</h2>
+            <p class="exercise-subtitle">Page 59, n. 3</p>
+
+            <div class="info-box">
+                <strong>Instructions:</strong> Based on the text "Black Summer in Australia" in your textbook, answer the questions below.
+            </div>
+
+            <div class="question">
+                <p class="question-text">1. What happened in Australia?</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="huge fires|large fires|fires burned|bushfires" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. Why were the fires difficult to control?</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="high temperatures|very hot|dry|heat and dry" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. What did volunteers do?</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="rescued people|helped firefighters|saved animals|rescue" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. What do experts say?</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="fires will be more common|climate change|more fires" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(14)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(14)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(14)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-14"></div>
+        </div>
+
+        <!-- Exercise 15: Vocabulary Review -->
+        <div class="exercise-container" data-exercise="15">
+            <h2 class="exercise-title">🌀 Exercise 15: Weather & Disasters Vocabulary</h2>
+            <p class="exercise-subtitle">Page 61, n. 1</p>
+
+            <div class="info-box">
+                <strong>Word bank:</strong> evacuate • rain • fire • shake • dry • blow
+            </div>
+
+            <div class="question">
+                <p class="question-text">1. The ground will __________ during an earthquake.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="shake" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. The wind will __________ very fast.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="blow" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. The river will __________ up in summer.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="dry" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">4. It will __________ all week.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="rain" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">5. You must __________ your house during a fire.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="evacuate" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="question">
+                <p class="question-text">6. The __________ will destroy the forest.</p>
+                <div class="input-group">
+                    <input type="text" class="answer" data-answer="fire" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-check" onclick="checkExercise(15)">Check Answers</button>
+                <button class="btn btn-reset" onclick="resetExercise(15)">Reset</button>
+                <button class="btn btn-show" onclick="showAnswers(15)">Show Answers</button>
+            </div>
+            <div class="score-display" id="score-15"></div>
+        </div>
+
+        <div class="footer">
+            <p>📚 English Practice Exercises - Natural Disasters & Weather</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Perfect for GitHub deployment • Fully responsive • Interactive learning</p>
+        </div>
+    </div>
+
+    <script>
+        // Navigation between exercises
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const exerciseNum = this.dataset.exercise;
+                
+                // Update active button
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected exercise
+                document.querySelectorAll('.exercise-container').forEach(ex => ex.classList.remove('active'));
+                document.querySelector(`[data-exercise="${exerciseNum}"].exercise-container`).classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Normalize answer for comparison
+        function normalizeAnswer(answer) {
+            return answer.toLowerCase().trim()
+                .replace(/\s+/g, ' ')
+                .replace(/[.,!?;]/g, '');
+        }
+
+        // Check if answer is correct (handles multiple possible answers separated by |)
+        function isCorrect(userAnswer, correctAnswer) {
+            const normalized = normalizeAnswer(userAnswer);
+            const possibleAnswers = correctAnswer.toLowerCase().split('|').map(a => normalizeAnswer(a));
+            return possibleAnswers.some(possible => normalized === possible || normalized.includes(possible));
+        }
+
+        // Check answers for an exercise
+        function checkExercise(exerciseNum) {
+            const container = document.querySelector(`[data-exercise="${exerciseNum}"].exercise-container`);
+            const inputs = container.querySelectorAll('.answer');
+            let correct = 0;
+            let total = 0;
+
+            inputs.forEach(input => {
+                const correctAnswer = input.dataset.answer;
+                if (!correctAnswer) return; // Skip if no answer key
+                
+                total++;
+                let userAnswer;
+                
+                if (input.tagName === 'SELECT') {
+                    userAnswer = input.value;
+                } else if (input.tagName === 'TEXTAREA') {
+                    // Skip textareas (open-ended questions)
+                    return;
+                } else {
+                    userAnswer = input.value;
+                }
+
+                // Remove existing feedback
+                const existingFeedback = input.parentElement.querySelector('.feedback');
+                if (existingFeedback) {
+                    existingFeedback.remove();
+                }
+
+                input.classList.remove('correct', 'incorrect');
+
+                if (isCorrect(userAnswer, correctAnswer)) {
+                    input.classList.add('correct');
+                    correct++;
+                    
+                    const feedback = document.createElement('div');
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✓ Correct!';
+                    input.parentElement.appendChild(feedback);
+                } else if (userAnswer) {
+                    input.classList.add('incorrect');
+                    
+                    const feedback = document.createElement('div');
+                    feedback.className = 'feedback incorrect';
+                    const answers = correctAnswer.split('|');
+                    feedback.textContent = `✗ Incorrect. Correct answer: ${answers[0]}`;
+                    input.parentElement.appendChild(feedback);
+                }
+            });
+
+            // Show score
+            if (total > 0) {
+                const scoreDisplay = document.getElementById(`score-${exerciseNum}`);
+                const percentage = Math.round((correct / total) * 100);
+                scoreDisplay.textContent = `Score: ${correct}/${total} (${percentage}%)`;
+                scoreDisplay.classList.add('show');
+            }
+        }
+
+        // Reset exercise
+        function resetExercise(exerciseNum) {
+            const container = document.querySelector(`[data-exercise="${exerciseNum}"].exercise-container`);
+            const inputs = container.querySelectorAll('.answer');
+            
+            inputs.forEach(input => {
+                if (input.tagName === 'SELECT') {
+                    input.selectedIndex = 0;
+                } else {
+                    input.value = '';
+                }
+                input.classList.remove('correct', 'incorrect');
+                
+                const feedback = input.parentElement.querySelector('.feedback');
+                if (feedback) {
+                    feedback.remove();
+                }
+            });
+
+            const scoreDisplay = document.getElementById(`score-${exerciseNum}`);
+            scoreDisplay.classList.remove('show');
+        }
+
+        // Show all answers
+        function showAnswers(exerciseNum) {
+            const container = document.querySelector(`[data-exercise="${exerciseNum}"].exercise-container`);
+            const inputs = container.querySelectorAll('.answer');
+            
+            inputs.forEach(input => {
+                const correctAnswer = input.dataset.answer;
+                if (!correctAnswer) return;
+                
+                const answers = correctAnswer.split('|');
+                if (input.tagName === 'SELECT') {
+                    input.value = answers[0];
+                } else if (input.tagName !== 'TEXTAREA') {
+                    input.value = answers[0];
+                }
+                
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+                
+                const existingFeedback = input.parentElement.querySelector('.feedback');
+                if (existingFeedback) {
+                    existingFeedback.remove();
+                }
+            });
+
+            const scoreDisplay = document.getElementById(`score-${exerciseNum}`);
+            scoreDisplay.classList.remove('show');
+        }
+
+        // Enable Enter key to check answers
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.target.classList.contains('answer')) {
+                const container = e.target.closest('.exercise-container');
+                const exerciseNum = container.dataset.exercise;
+                checkExercise(exerciseNum);
+            }
+        });
+    </script>
+</body>
+</html>
